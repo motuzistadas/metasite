@@ -1,72 +1,41 @@
-Symfony Standard Edition
-========================
+## Installation
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+1) Install and run the project:
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+```sh
+php -r "readfile('https://getcomposer.org/installer');" | php
+php composer.phar install
+php app/console doctrine:schema:create
+```
 
-What's inside?
---------------
+2) To use the login system, you need to get your client ID and secret on at least one provider:
 
-The Symfony Standard Edition is configured with the following defaults:
+| Provider       | Setup URL                                     |
+| -------------- | --------------------------------------------- |
+| GitHub         | https://github.com/settings/developers        |
+| StackExchange  | https://stackapps.com/apps/oauth/             |
+| Google         | https://console.developers.google.com/project |
+| Twitter        | https://apps.twitter.com/                     |
+| Facebook       | https://developers.facebook.com/apps/         | 
 
-  * An AppBundle you can use to start coding;
+3) To see all administration content you have to login (at this example throw Facebook)! Once you logged in, you can run the following commands:
 
-  * Twig as the only configured template engine;
+```sh
+# list your users, from here you can find your id (should be 3, but stay safe).
+php app/console user:list
 
-  * Doctrine ORM/DBAL;
+# enable user with id = 3
+php app/console user:enable 3
 
-  * Swiftmailer;
+# set user with id = 3 as admin
+php app/console user:admin 3
+```
 
-  * Annotations enabled for everything.
+## File for subscribers
 
-It comes pre-configured with the following bundles:
+File for saving subscribers info saved in web/subscriptions.csv
 
-  * **FrameworkBundle** - The core Symfony framework bundle
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev env) - Adds code generation
-    capabilities
-
-  * [**WebServerBundle**][14] (in dev env) - Adds commands for running applications
-    using the PHP built-in web server
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.3/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.3/doctrine.html
-[8]:  https://symfony.com/doc/3.3/templating.html
-[9]:  https://symfony.com/doc/3.3/security.html
-[10]: https://symfony.com/doc/3.3/email.html
-[11]: https://symfony.com/doc/3.3/logging.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
-[14]: https://symfony.com/doc/current/setup/built_in_web_server.html
