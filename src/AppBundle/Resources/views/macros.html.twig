@@ -1,0 +1,93 @@
+{# AppBundle::macros.html.twig #}
+
+{% macro modal(id, title, body, options) %}
+
+    {%
+        set defaults = {
+            'modal-class': null,
+        }
+    %}
+    {% set options = defaults|merge(options|default({})) %}
+
+    <div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-labelledby="{{ id }}" aria-hidden="true">
+        <div class="modal-dialog {{ options['modal-class'] }}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><div class="text-left">{{ title }}</div></h4>
+                </div>
+                <div class="modal-body">
+                    {{ body }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" title="Close the window">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+
+
+
+{% macro pager(pager, prefix = '', hash = '') %}
+    <div class="row">
+        <div class="text-center col-md-12">
+            {{
+                pagerfanta(pager, 'light', {
+                    'pageParameter': '[' ~ prefix ~ 'page]',
+                    'hash': hash,
+                })
+            }}
+        </div>
+       
+        <div class="text-center col-md-12">
+            <br/>
+            <p>Total: {{ pager.nbResults }} results </p>
+        </div>
+        
+    </div>
+{% endmacro %}
+
+{% macro orderBy(order, column, label, hash = '') %}
+    {% set isCurrent = order.column == column %}
+    {% if isCurrent %}
+        <a style="color:black;" href="?{{ http_build_query(app.request.query.all|merge({(order.prefix ~ 'order-by'): column, (order.prefix ~ 'order-by-direction'): order.direction == 'ASC' ? 'desc' : 'asc'})) ~ (hash ? '#' ~ hash : '') }}">{{ label|trans }}</a>
+    {% else %}
+        <a href="?{{ http_build_query(app.request.query.all|merge({(order.prefix ~ 'order-by'): column})) ~ (hash ? '#' ~ hash : '') }}">{{ label|trans }}</a>
+    {% endif %}
+    {% if not isCurrent or order.direction != 'ASC' %}
+        <a href="?{{ http_build_query(app.request.query.all|merge({(order.prefix ~ 'order-by'): column, (order.prefix ~ 'order-by-direction'): 'asc'})) ~ (hash ? '#' ~ hash : '') }}">▲</a>
+    {% else %}
+        ▲
+    {% endif %}
+    {% if not isCurrent or order.direction != 'DESC' %}
+        <a href="?{{ http_build_query(app.request.query.all|merge({(order.prefix ~ 'order-by'): column, (order.prefix ~ 'order-by-direction'): 'desc'})) ~ (hash ? '#' ~ hash : '') }}">▼</a>
+    {% else %}
+        ▼
+    {% endif %}
+{% endmacro %}
+
+{% macro search(name = 'filter') %}
+    <div class="pull-right">
+        <form method="get" action="" class="form-inline" role="form">
+            <div class="input-group stylish-input-group" style="border:none;">
+                <div class="input-group stylish-input-group" style="border:none;">
+                    <span >
+                        <input name="{{ name }}" placeholder="Search" style="border:none;" class="form-control" value="{{ app.request.get(name)|e('html_attr') }}" type="search">
+                        {% for key, value in app.request.query.all if key != name %}
+                            {{ array_to_query_fields(key, value) }}
+                        {% endfor %}
+                    </span>
+                    <span >
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endmacro %}
+

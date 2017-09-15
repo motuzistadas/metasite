@@ -2,6 +2,8 @@
 # https://symfony.com/doc/current/service_container.html
 parameters:
     #parameter_name: value
+    pagerfanta.view.light.class: AppBundle\Pagerfanta\View\LightView
+    pagerfanta.template.light.class: AppBundle\Pagerfanta\Template\LightTemplate
 
 services:
     # default configuration for services in *this* file
@@ -33,3 +35,26 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+
+    # pagerfanta.view.default:
+    #     class: Pagerfanta\View\DefaultView
+    #     public: false
+    #     tags: [{ name: pagerfanta.view, alias: default }]
+    pagerfanta.view.light:
+        class: '%pagerfanta.view.light.class%'
+        public: false
+        arguments: ['@pagerfanta.template.light']
+        tags:
+            - { name: pagerfanta.view, alias: light }
+
+    pagerfanta.template.light:
+        class: '%pagerfanta.template.light.class%'
+        public: false
+        arguments: ['@translator']
+
+    
+
+
+
+    

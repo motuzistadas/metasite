@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Metasite Task{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}Home | NFQ atranka{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('favicon.ico')) }}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+       
     </head>
     <body>
         <div class="container">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <a href="{{ logout_path() }}" class="btn btn-danger">Logout</a>
-                <a href="/categories" class="btn btn-success">Categories</a>
-                <a href="/list" class="btn btn-success">Subscribers</a>
+                <a href="/list" class="btn btn-success">Orders</a>
             {% endif %}
             {% block body %}{% endblock %}
         </div>

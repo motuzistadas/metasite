@@ -29,3 +29,4 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/categories, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/list, roles: IS_AUTHENTICATED_FULLY }
