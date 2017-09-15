@@ -18,8 +18,8 @@ abstract class BaseController extends Controller
 {
     use ServiceTrait;
 
-    const PAGER_PER_PAGE_LIST    = '5,50,100';
-    const PAGER_PER_PAGE_DEFAULT = 5;
+    const PAGER_PER_PAGE_LIST    = '10,20,40';
+    const PAGER_PER_PAGE_DEFAULT = 10;
 
     public function info($message, array $parameters = [])
     {

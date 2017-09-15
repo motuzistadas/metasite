@@ -32,18 +32,27 @@ class DefaultController extends Controller
         $form = $this->createForm(OrderType::class, $order);
 
         $form->handleRequest($request);
+        $msg = false;
 
         if($form->isSubmitted() && $form->isValid()){
             // Create the order
+            $msg = true;
+
             $order->setOrderDate(new \DateTime("now"));
             $em->persist($order);
             $em->flush();
+
+            unset($order); 
+            unset($form); #clean form fields
+            $order = new Orders();
+            $form = $this->createForm(OrderType::class, $order);
 
             $this->redirect('home');
         }
 
         return $this->render('default/index.html.twig', array(
-        'form' => $form->createView()
+        'form' => $form->createView(),
+        'msg' => $msg,
         ));
     }
 }

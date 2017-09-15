@@ -16,22 +16,34 @@ class OrderType extends AbstractType {
 	public function buildForm(FormBuilderInterface $builder, array $options){
 		$builder
 			->add('name', TextType::class, [
-                   'label' => 'Name',
+                   'label' => false,
+                   'attr' => [
+                   		'placeholder' => 'Name'
+                   ]
                ])
                ->add('surname', TextType::class, [
-                   'label'    => 'Surname',
+                   'label'    => false,
+                   'attr' => [
+                   		'placeholder' => 'Surname'
+                   ]
                ])
                ->add('email', EmailType::class, [
-                   'label'    => 'E-mail',
+                   'label'    => false,
+                   'attr' => [
+                   		'placeholder' => 'Email'
+                   ]
                ])
                ->add('mobile', TextType::class, [
-                   'label'    => 'Mobile',
+                   'label'    => false,
+                   'attr' => [
+                   		'placeholder' => 'Mobile'
+                   ]
                ])
 			   ->add('submit', SubmitType::class, [
 					'attr' => [
-						'class' => 'btn btn-success pull-right'
+						'class' => 'button tm'
 					],
-					'label' => 'Order'
+					'label' => 'Send'
 				]);
 	}
 
